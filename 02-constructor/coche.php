@@ -8,14 +8,16 @@ class Coche
     private $plazas;
     private $velocidad = 0;
     private $velocidad_max = 3;
-    private $potencia = 500;
+    private $potencia;
 
-    public function __construct($color, $marca, $modelo, $plazas)
+
+    public function __construct($color, $marca, $modelo, $plazas, $potencia = 0)
     {
         $this->color = $color;
         $this->marca = $marca;
         $this->modelo = $modelo;
         $this->plazas = $plazas;
+        $this->potencia = $potencia;
     }
 
     //Métodos, funciones o acciones
@@ -40,6 +42,14 @@ class Coche
         return $this->velocidad;
     }
     //TODO añadir getters y setters
+    public function getPotencia()
+    {
+        return $this->potencia;
+    }
+    public function setPotencia($potencia)
+    {
+        $this->potencia = $potencia;
+    }
     public function acelerar()
     {
         if ($this->velocidad < $this->velocidad_max) {
@@ -55,7 +65,14 @@ class Coche
 
     //TODO método que imprima la información del coche
     //formateada en html
-    public function mostrarInfo(){
-        return ""
+    public function mostrarInfo()
+    {
+        $informacion = "<h2>Información</h2>";
+        $informacion .= "<p>Color: " . $this->color . "</p>";
+        $informacion .= "<p>Modelo: " . $this->modelo . "</p>";
+        $informacion .= "<p>Marca: " . $this->marca . "</p>";
+        $informacion .= "<p>Plazas " . $this->plazas . "</p>";
+        $informacion .= "<p>Poténcia: " . $this->potencia . "cv</p>";
+        return $informacion;
     }
 }
