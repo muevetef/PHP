@@ -1,35 +1,52 @@
 <?php
 require_once 'Vehiculo.php';
-class Moto extends Vehiculo
+class Coche extends Vehiculo
 {
-    private int $cc;
+    private int $puertas;
+    private int $plazas;
 
-    /**
-     * @param int $cc
-     */
-    public function __construct(string $matricula, string $marca, string $modelo,int $cc)
+    public function __construct(string $matricula, string $marca, string $modelo,int $plazas, int $puertas)
     {
         parent::__construct($matricula, $marca, $modelo);
-        $this->cc = $cc;
+        $this->plazas = $plazas;
+        $this->puertas = $puertas;
+    }
+    public function getPuertas(): int
+    {
+        return $this->puertas;
+    }
+    public function setPuertas(int $puertas): void
+    {
+        $this->puertas = $puertas;
+    }
+    public function getPlazas(): int
+    {
+        return $this->plazas;
+    }
+    public function setPlazas(int $plazas): void
+    {
+        $this->plazas = $plazas;
     }
 
-    public function getCc(): int
-    {
-        return $this->cc;
-    }
 
-    public function setCc(int $cc): void
-    {
-        $this->cc = $cc;
-    }
 
     public function __toString()
     {
         $info  = "<ul>";
         $info .= parent::__toString();
-        $info .= "<li>CC: " . $this->cc . "</li>";
-        $info  = "</ul>";
+        $info .= "<li>Puertas: " . $this->puertas . "</li>";
+        $info .= "<li>Plazas: " . $this->plazas . "</li>";
+        $info .= "</ul>";
         return $info;
     }
-
+    public function getData(): array
+    {
+        return [
+            "matricula" => $this->matricula,
+            "marca" => $this->marca,
+            "modelo" => $this->modelo,
+            "puertas" => $this->puertas,
+            "plazas" => $this->plazas
+        ];
+    }
 }

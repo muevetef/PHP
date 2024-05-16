@@ -1,43 +1,38 @@
 <?php
 require_once 'Vehiculo.php';
-class Coche extends Vehiculo
+class Camion extends Vehiculo
 {
-    private int $puertas;
-    private int $plazas;
+    private int $kg;
 
-    public function __construct(string $matricula, string $marca, string $modelo,int $plazas, int $puertas)
+    public function __construct(string $matricula, string $marca, string $modelo,int $kg)
     {
         parent::__construct($matricula, $marca, $modelo);
-        $this->plazas = $plazas;
-        $this->puertas = $puertas;
-    }
-    public function getPuertas(): int
-    {
-        return $this->puertas;
-    }
-    public function setPuertas(int $puertas): void
-    {
-        $this->puertas = $puertas;
-    }
-    public function getPlazas(): int
-    {
-        return $this->plazas;
-    }
-    public function setPlazas(int $plazas): void
-    {
-        $this->plazas = $plazas;
+        $this->kg = $kg;
     }
 
+    public function getKg(): int
+    {
+        return $this->kg;
+    }
 
 
     public function __toString()
     {
         $info  = "<ul>";
         $info .= parent::__toString();
-        $info .= "<li>Puertas: " . $this->puertas . "</li>";
-        $info .= "<li>Plazas: " . $this->plazas . "</li>";
+        $info .= "<li>Carga: " . $this->kg . "</li>";
         $info .= "</ul>";
         return $info;
+    }
+
+    public function getData(): array
+    {
+        return [
+            "matricula" => $this->matricula,
+            "marca" => $this->marca,
+            "modelo" => $this->modelo,
+            "kg" => $this->kg
+        ];
     }
 
 }

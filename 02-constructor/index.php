@@ -13,7 +13,8 @@ try {
 }
 
 //Crear 3 coches más y mostrar su info 
-echo $coche1->mostrarInfo();
-echo $coche2->mostrarInfo();
-echo $coche3->mostrarInfo();
-echo $coche4->mostrarInfo();
+// echo $coche1->mostrarInfo();
+// echo $coche2->mostrarInfo();
+// echo $coche3->mostrarInfo();
+// echo $coche4->mostrarInfo();
+echo $coche1;

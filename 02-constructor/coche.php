@@ -65,7 +65,17 @@ class Coche
 
     //TODO método que imprima la información del coche
     //formateada en html
-    public function mostrarInfo()
+    // public function mostrarInfo()
+    // {
+    //     $informacion = "<h2>Información</h2>";
+    //     $informacion .= "<p>Color: " . $this->color . "</p>";
+    //     $informacion .= "<p>Modelo: " . $this->modelo . "</p>";
+    //     $informacion .= "<p>Marca: " . $this->marca . "</p>";
+    //     $informacion .= "<p>Plazas " . $this->plazas . "</p>";
+    //     $informacion .= "<p>Poténcia: " . $this->potencia . "cv</p>";
+    //     return $informacion;
+    // }
+    public function __toString()
     {
         $informacion = "<h2>Información</h2>";
         $informacion .= "<p>Color: " . $this->color . "</p>";

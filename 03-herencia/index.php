@@ -19,3 +19,6 @@ $web = new Proyecto(10.4, $informatico);
 echo $web->mostrarDatos();
 echo "<hr>";
 echo $web->persona->hablar();
+
+$date = new DateTime('2022/01/03');
+echo $date->format('d-m-Y');
