@@ -39,6 +39,14 @@ class Flota
         return true;
     }
 
+    public function vehiculoExists(string $matricula): bool{
+        foreach ($this->vehiculos as $vehiculo){
+            if($vehiculo->getMatricula() == $matricula){
+                return true;
+            }
+        }
+        return false;
+    }
    public function listVehiculos():string{
         //TODO mejorable no devolver string en esta capa
        $str = "La flota ".$this->nombre;

@@ -41,6 +41,7 @@ class Coche extends Vehiculo
     public function getData(): array
     {
         return [
+            "tipo" => "Coche",
             "matricula" => $this->matricula,
             "marca" => $this->marca,
             "modelo" => $this->modelo,

@@ -76,5 +76,13 @@ class VehiculosRent
         return true;
     }
 
+    public function vehiculoExists(string $matricula):bool{
+        foreach ($this->flotas as $flota){
+            if($flota->vehiculoExists($matricula)){
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

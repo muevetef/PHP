@@ -1,4 +1,5 @@
 <?php
+
 require_once 'VehiculosRent.php';
 require_once 'Flota.php';
 require_once 'Coche.php';
@@ -6,45 +7,8 @@ require_once 'Cliente.php';
 require_once 'Camion.php';
 require_once 'Moto.php';
 require_once 'ContratoAlquiler.php';
-
-//cargar datos
-$VR = new VehiculosRent("11223344A","Vehículos para alquilar");
-
-function cargarDatosFlotas(){
-    global $VR;
-    $flotaRoja = new Flota("Zona Roja");
-    $flotaVerde = new Flota("Zona Verde");
-    $flotaAmarilla = new Flota("Zona Amarilla");
-
-    $VR->addFlota($flotaRoja);
-    $VR->addFlota($flotaVerde);
-    $VR->addFlota($flotaAmarilla);
-}
-function cargarDatosVehiculos(){
-    $coche = new Coche("1122ABC", "Audi", "TT", 2, 4);
-    $moto = new Moto("2233LML", "Piaggio", "Liberty", 125);
-    $camion = new Camion("3344HJK", "Renault", "Jumpy", 560);
-    global $VR;
-    $VR->getFlotas()[0]->addVehiculo($coche);
-    $VR->getFlotas()[0]->addVehiculo($moto);
-    $VR->getFlotas()[1]->addVehiculo($moto);
-    $VR->getFlotas()[2]->addVehiculo($camion);
-}
-
-function cargarDatosAgencias()
-{
-    //TODO falta la clase agéncia
-}
-
-function cargarDatos(){
-    cargarDatosFlotas();
-    cargarDatosVehiculos();
-    cargarDatosAgencias();
-}
-//Carga inicial de datos -> se hará desde una consulta a la BBDD
-
+require_once 'carga_datos.php';
 cargarDatos();
-//var_dump($VR);
 $salir = false;
 
 
@@ -80,11 +44,16 @@ do{
 
 function addVehiculoToFlota()
 {
-    echo "Añadir una vehiculo a la flota\n";
-    do{
+    global $VR;
+    do {
+        echo "Añadir una vehiculo a la flota\n";
         //Pedir y guardar datos el Vehiculo
         print "Matricula: ";
         $matricula = fgets(STDIN);//TODO comprobar si el vehículo existe y mostrar en que flota está
+        if ($VR->vehiculoExists($matricula)) {
+            echo "Esta matricula ya existe\n";
+            continue;
+        }
         print "Marca: ";
         $marca = fgets(STDIN);
         print "Modelo: ";
@@ -97,13 +66,13 @@ function addVehiculoToFlota()
         print "3 Camión\n";
 
         fscanf(STDIN, "%d\n", $opcion);
-        switch ($opcion){
+        switch ($opcion) {
             case 1:
                 print "Número de plazas: \n";
                 $numero_plazas = fgets(STDIN);
                 print "Número de puertas: \n";
                 $puertas = fgets(STDIN);
-                $vehiculo = new Coche($matricula, $marca, $modelo,$numero_plazas, $puertas);
+                $vehiculo = new Coche($matricula, $marca, $modelo, $numero_plazas, $puertas);
                 break;
             case 2:
                 print "Cilindrada: ";
@@ -119,11 +88,26 @@ function addVehiculoToFlota()
                 echo "\e[31mOpción incorrecta! \e[0m\n";
                 return;
         }
-        var_dump($vehiculo);
+//        var_dump($vehiculo);
         //Mostrar las flotas
+        echo "Selecciona una flota\n";
+        foreach ($VR->getFlotas() as $key => $flota) {
+            echo $key . ': ' . $flota->getNombre() . "\n";
+        }
+        //Preguntar por la opción de la flota
+        fscanf(STDIN, "%d\n", $opcion);
         //Selecciona una flota
+        if ($opcion < 0 || $opcion > count($VR->getFlotas())) {
+            echo "\e[31mOpción incorrecta! \e[0m\n";
+            return;
+        }
         //Añadir el vehiculo
-
+        if ($VR->getFlotas()[$opcion]->addVehiculo($vehiculo)) {
+            echo "El vehiculo se añadió correctamente a la flota" . $VR->getFlotas()[$opcion]->getNombre() . "\n";
+        } else {
+            echo "Ha ocurrido un error al añadir el vehiculo\n";
+        }
+        return;
     }while(true);
 }
 

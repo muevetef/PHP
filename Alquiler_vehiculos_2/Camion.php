@@ -28,6 +28,7 @@ class Camion extends Vehiculo
     public function getData(): array
     {
         return [
+            "tipo" => "Camión",
             "matricula" => $this->matricula,
             "marca" => $this->marca,
             "modelo" => $this->modelo,

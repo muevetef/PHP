@@ -35,6 +35,7 @@ class Moto extends Vehiculo
     public function getData()
     {
         return [
+            "tipo" => "Moto",
             "matricula" => $this->matricula,
             "marca" => $this->marca,
             "modelo" => $this->modelo,
