@@ -42,7 +42,7 @@ class Flota
      {
         foreach ($this->vehiculos as $veh){
             if($veh->getMatricula() == $matricula){
-                $key = array_search($matricula, $this->vehiculos);
+                $key = array_search($veh, $this->vehiculos);
                 unset($this->vehiculos[$key]);
                 return true;
             }

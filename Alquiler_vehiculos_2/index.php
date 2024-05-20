@@ -51,15 +51,15 @@ function addVehiculoToFlota()
         echo "Añadir una vehiculo a la flota\n";
         //Pedir y guardar datos el Vehiculo
         print "Matricula: ";
-        $matricula = fgets(STDIN);//TODO comprobar si el vehículo existe y mostrar en que flota está
+        $matricula = trim(fgets(STDIN));//TODO comprobar si el vehículo existe y mostrar en que flota está
         if ($VR->vehiculoExists($matricula)) {
             echo "Esta matricula ya existe\n";
             continue;
         }
         print "Marca: ";
-        $marca = fgets(STDIN);
+        $marca = trim(fgets(STDIN));
         print "Modelo: ";
-        $modelo = fgets(STDIN);
+        $modelo = trim(fgets(STDIN));
 
         //Elegir el tipo de vehívulo
         print "Elige un tipo de vehículo\n";
@@ -71,19 +71,19 @@ function addVehiculoToFlota()
         switch ($opcion) {
             case 1:
                 print "Número de plazas: \n";
-                $numero_plazas = fgets(STDIN);
+                $numero_plazas = trim(fgets(STDIN));
                 print "Número de puertas: \n";
-                $puertas = fgets(STDIN);
+                $puertas = trim(fgets(STDIN));
                 $vehiculo = new Coche($matricula, $marca, $modelo, $numero_plazas, $puertas);
                 break;
             case 2:
                 print "Cilindrada: ";
-                $cilindrada = fgets(STDIN);
+                $cilindrada = trim(fgets(STDIN));
                 $vehiculo = new Moto($matricula, $marca, $modelo, $cilindrada);
                 break;
             case 3:
                 print "Tara: ";
-                $kg = fgets(STDIN);
+                $kg = trim(fgets(STDIN));
                 $vehiculo = new Camion($matricula, $marca, $modelo, $kg);
                 break;
             default:
@@ -140,9 +140,12 @@ function quitarVehiculoFlota()
     echo "Quitar un vehiculo de la flota\n";
     echo "Escribe la matrícula: ";
     $matricula = trim(fgets(STDIN));//TODO filtar los espacios
-    if($VR->removeVehiculo($matricula)){
-        echo "El vehiculo ".$matricula."se ha quitado correctamente";
+    foreach ($VR->getFlotas() as $key => $flota){
+        if($flota->removeVehiculo($matricula)){
+            echo "El vehiculo con matricula ".$matricula." fue quitado correctamente de la flota " .
+            $flota->getNombre()."\n";
             return;
+        }
     }
 
     echo "Algo ha ido mal al intentar eliminar el vehiculo\n";

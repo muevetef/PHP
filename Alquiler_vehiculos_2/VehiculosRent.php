@@ -84,15 +84,7 @@ class VehiculosRent
         }
         return false;
     }
-    public function removeVehiculo(string $matricula):bool{
-        foreach ($this->flotas as $flota){
-            if($flota->vehiculoExists($matricula)){
 
-                return $flota->removeVehiculo($matricula);
-            }
-        }
-        return false;
-    }
     public function addAgencia(Agencia $agencia)
     {
         foreach ($this->agencias as $ag){
