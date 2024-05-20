@@ -27,7 +27,13 @@ function cargarDatosVehiculos(){
 
 function cargarDatosAgencias()
 {
-    //TODO falta la clase agéncia
+    global $VR;
+    $agencia_central = new Agencia("Agencia Central", $VR->getFlotas()[0]);
+    $VR->addAgencia($agencia_central);
+    $agencia_oeste = new Agencia("Agencia Oeste", $VR->getFlotas()[1]);
+    $VR->addAgencia($agencia_oeste);
+    $agencia_este = new Agencia("Agencia Este", $VR->getFlotas()[2]);
+    $VR->addAgencia($agencia_este);
 }
 
 function cargarDatos(){

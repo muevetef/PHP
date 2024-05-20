@@ -7,8 +7,10 @@ require_once 'Cliente.php';
 require_once 'Camion.php';
 require_once 'Moto.php';
 require_once 'ContratoAlquiler.php';
+require_once 'Agencia.php';
 require_once 'carga_datos.php';
 cargarDatos();
+
 $salir = false;
 
 
@@ -134,10 +136,25 @@ function mostrarVehiculosFlota()
 
 function quitarVehiculoFlota()
 {
+    global $VR;
     echo "Quitar un vehiculo de la flota\n";
+    echo "Escribe la matrícula: ";
+    $matricula = trim(fgets(STDIN));//TODO filtar los espacios
+    if($VR->removeVehiculo($matricula)){
+        echo "El vehiculo ".$matricula."se ha quitado correctamente";
+            return;
+    }
+
+    echo "Algo ha ido mal al intentar eliminar el vehiculo\n";
 }
 
 function mostrarAgencias()
 {
-    echo "Vista de agencias\n";
+    global $VR;
+    print "************************************************\n";
+    print "*     Vista de las Agencias                    *\n";
+    print "************************************************\n";
+    foreach ($VR->getAgencias() as $agencia){
+        echo $agencia;
+    }
 }

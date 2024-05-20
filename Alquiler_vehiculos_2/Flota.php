@@ -38,7 +38,17 @@ class Flota
         $this->vehiculos[] = $vehiculo;
         return true;
     }
-
+     public function removeVehiculo($matricula): bool
+     {
+        foreach ($this->vehiculos as $veh){
+            if($veh->getMatricula() == $matricula){
+                $key = array_search($matricula, $this->vehiculos);
+                unset($this->vehiculos[$key]);
+                return true;
+            }
+        }
+        return false;
+     }
     public function vehiculoExists(string $matricula): bool{
         foreach ($this->vehiculos as $vehiculo){
             if($vehiculo->getMatricula() == $matricula){
@@ -46,6 +56,16 @@ class Flota
             }
         }
         return false;
+    }
+    public function getVehiculoByPlazas($plazas): array
+    {
+        $filtro = [];
+        foreach ($this->vehiculos as $vehiculo){
+            if($vehiculo->getPlazas() == $plazas){
+                $filtro[] = $vehiculo;
+            }
+        }
+        return $filtro;
     }
    public function listVehiculos():string{
         //TODO mejorable no devolver string en esta capa
